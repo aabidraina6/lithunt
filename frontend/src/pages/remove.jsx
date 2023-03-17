@@ -44,8 +44,8 @@ export default function KickPage() {
     if ((await res).status === 200) {
       setIsValid(true);
       if (retData.showVote === false) setIsValid(false);
-      setTeamData(retData);
       setMemberData(retData.teamMembers);
+      setTeamData(retData);
       const index = retData.path.findIndex(
         (item) => item.location === parseInt(params.location)
       );
@@ -113,7 +113,6 @@ export default function KickPage() {
           const index = names.findIndex(
             (item) => item.id === e.currentTarget.value
           );
-          // todo : proper remove
           setName(names[index].name);
           nameRef.current = names[index].name.replace(" ", "%");
         }}

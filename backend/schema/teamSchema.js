@@ -35,7 +35,6 @@ const teamSchema = new mongoose.Schema({
   ],
   groupNo: {
     type: Number,
-    required: true,
   },
   path: [
     {
