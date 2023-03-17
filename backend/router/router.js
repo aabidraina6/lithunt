@@ -9,8 +9,7 @@ const logModel = require("../schema/logSchema");
 //todo :  remove page
 
 const validLocations = [
-  2619, 9261, 191142, 91412, 1426, 9162, 1629, 241191, 21419, 6241, 8, 88, 0,
-  69, 4589, 5,
+  2619, 9261, 191142, 91412, 1426, 9162, 1629, 241191, 21419, 6241, 8, 4589, 5,
 ];
 
 router.get("/api/team/:location", authenticate, async (req, res) => {
