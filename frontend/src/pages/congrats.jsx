@@ -41,14 +41,14 @@ export default function Congrats() {
   if(!show){
     return(
       <div style={{ color: "white" }} className="message-all">
-        <h2>you are not authorized to view this page</h2>
+        <h2>congrats! </h2>
       </div>
     )
   }
 
   return (
     <div style={{ color: "white" }} className="message-all">
-      <h2>congrats! You have completed the hunt</h2>
+      <h2>congrats!</h2>
     </div>
   );
 }

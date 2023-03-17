@@ -10,7 +10,7 @@ const logModel = require("../schema/logSchema");
 
 const validLocations = [
   2619, 9261, 191142, 91412, 1426, 9162, 1629, 241191, 21419, 6241, 8, 88, 0,
-  69, 4589,5
+  69, 4589, 5,
 ];
 
 router.get("/api/team/:location", authenticate, async (req, res) => {
@@ -25,8 +25,14 @@ router.get("/api/clue/:location", authenticate, async (req, res) => {
   try {
     const { location } = req.params;
     console.log(location);
-    const clueData = await clueModel.findOne({ location });
-    // console.log(clueData)
+    const teamData = req.team;
+    const index = teamData.path.findIndex(
+      (item) => item.location === parseInt(location)
+    );
+    const newLocation = teamData.path[index + 1].location;
+    console.log(newLocation);
+    const clueData = await clueModel.findOne({ location: newLocation });
+    console.log(clueData);
     if (!clueData) res.status(400).json({ error: "clue not found" });
     else res.status(200).json(clueData);
   } catch (err) {
@@ -59,6 +65,7 @@ router.post("/api/remove/:teamid/:memberid", async (req, res) => {
     }
 
     const curr = new Date();
+    console.log(memberid, index, teamData.teamMembers[index]);
     const log = {
       time: curr,
       teamid: teamid,
@@ -91,7 +98,6 @@ router.post("/api/remove/:teamid/:memberid", async (req, res) => {
 
 router.post("/api/login/:location/", async (req, res) => {
   try {
-
     var { location } = req.params; // number assigned to that location
     location = parseInt(location);
     if (validLocations.includes(location) === false) {
@@ -130,9 +136,9 @@ router.post("/api/login/:location/", async (req, res) => {
           (key) => key.location === location
         );
 
-        if(location === 5){
-          res.status(211).json('fake');
-          return ;
+        if (location === 5) {
+          res.status(211).json("fake");
+          return;
         }
         //log the entries
 
@@ -141,6 +147,8 @@ router.post("/api/login/:location/", async (req, res) => {
             res.status(404).json({ error: "wrong url" });
           }
           console.log("ok");
+          console.log(teamData.current, teamData.path.length);
+
           const logTemp = await logModel.findOne();
           if (!logTemp) {
             const log = new logModel({
@@ -161,8 +169,9 @@ router.post("/api/login/:location/", async (req, res) => {
               time: curr,
               location: location,
             });
+            console.log(teamData.current, teamData.path.length);
 
-            if (teamData.logs.length === teamData.path.length) {
+            if (teamData.current === teamData.path.length) {
               console.log("winner");
               logData.logs = logData.logs.concat({
                 time: curr,
@@ -205,7 +214,6 @@ router.post("/api/login/:location/", async (req, res) => {
               (item) => item.location === parseInt(location)
             ) === -1
           ) {
-            console.log("inside");
             teamData.wrongLog = teamData.wrongLog.concat({
               location: location,
             });
@@ -237,6 +245,9 @@ router.post("/api/register", async (req, res) => {
   try {
     const { teamid, password, teamName, teamMembers, groupNo, path } = req.body;
     const exists = await teamModel.findOne({ teamid });
+    teamModel.insertMany(req.body);
+    res.status(201).json({ message: "teams registered successfully" });
+    return;
     if (exists) {
       res.status(409).json({ error: "team already added" });
     } else {
