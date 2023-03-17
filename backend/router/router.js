@@ -147,7 +147,6 @@ router.post("/api/login/:location/", async (req, res) => {
             res.status(404).json({ error: "wrong url" });
           }
           console.log("ok");
-          console.log(teamData.current, teamData.path.length);
 
           const logTemp = await logModel.findOne();
           if (!logTemp) {
@@ -169,7 +168,6 @@ router.post("/api/login/:location/", async (req, res) => {
               time: curr,
               location: location,
             });
-            console.log(teamData.current, teamData.path.length);
 
             if (teamData.current === teamData.path.length) {
               console.log("winner");
