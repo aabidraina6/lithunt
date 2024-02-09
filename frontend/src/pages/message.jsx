@@ -26,7 +26,7 @@ function MessagePage() {
   const [teamData, setTeamData] = useState({});
   const [clue1, setClue1] = useState("");
   const [clue2, setClue2] = useState("");
-  const [show, setShow] = useState(true); // whether show Page or Not
+  const [show, setShow] = useState(false); // whether show Page or Not
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [flag, setFlag] = useState(null);
@@ -96,7 +96,7 @@ function MessagePage() {
 
   const fetchData = async (flag1) => {
     setLoading(true);
-    const res = fetch(`/api/clue/${location}`, {
+    const res = await fetch(`/api/clue/${location}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -108,7 +108,9 @@ function MessagePage() {
     // todo : second time login at same location
     // if(retData.voted === 0)
     // navigate(`/vote/${location}`) clues are for everyone not for a single team
-    if ((await res).status === 200) {
+    const  resp = res.status;
+    console.log(resp)
+    if (resp === 200) {
       if (flag1) {
         // right in clue 1
         setClue1(retData.right);

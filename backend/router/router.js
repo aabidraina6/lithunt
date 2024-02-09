@@ -41,7 +41,7 @@ router.get("/api/clue/:location", authenticate, async (req, res) => {
     newData.wrong = newData.wrong[ind]
 
 
-    if (!newData) res.status(400).json({ error: "clue not found" });
+    if (!clueData) res.status(400).json({ error: "clue not found" });
     else res.status(200).json(newData);
   } catch (err) {
     console.log(err);
@@ -253,15 +253,12 @@ router.post("/api/login/:location/", async (req, res) => {
           }
           const logData = await logModel.findOne();
 
-          if (
-            teamData.wrongLog.findIndex(
-              (item) => item.location === parseInt(location)
-            ) === -1
-          ) {
+          {
             teamData.wrongLog = teamData.wrongLog.concat({
               location: location,
             });
-            if(location_num.index === location_index_current + 1)
+            if(location_num.index > location_index_current + 1)
+            console.log(teamData.countOfFails)
             teamData.countOfFails = teamData.countOfFails + 1;
             const curr = new Date();
             logData.logs = logData.logs.concat({
@@ -274,7 +271,8 @@ router.post("/api/login/:location/", async (req, res) => {
           await logData.save();
           if (teamData.countOfFails === 5) teamData.isBlocked = true; // todo  : update to 5
           await teamData.save();
-
+          console.log
+          (teamData.countOfFails)
           console.log("location wrong");
           res.status(400).json(teamData);
         }
