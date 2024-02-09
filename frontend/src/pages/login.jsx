@@ -27,6 +27,7 @@ function LoginPage() {
   const [blocked, setBlocked] = useState(false);
   const [Loading, setLoading] = useState(false);
   const [coinsOver, setCoinsOver] = useState(false);
+  const [error , setError] = useState(false);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -59,6 +60,7 @@ function LoginPage() {
       setNotFound(false);
       setBlocked(false);
       setCoinsOver(false);
+      setError(false)
 
       navigate(`/message/${location}`);
     } else if ((await res).status === 211) {
@@ -70,13 +72,16 @@ function LoginPage() {
       setBlocked(false); // todo : 406 when blocked using coins
       setInvalidCredentials(true);
       setCoinsOver(false);
+      setError(false)
     } else if ((await res).status === 404) {
       setWarning(false);
+      setError(false)
       setInvalidCredentials(false);
       setBlocked(false);
       setNotFound(true);
       setCoinsOver(false);
     } else if ((await res).status === 405) {
+      setError(false)
       setWarning(false);
       setInvalidCredentials(false);
       setNotFound(false);
@@ -86,13 +91,24 @@ function LoginPage() {
       navigate("/admin");
     } else if ((await res).status === 406) {
       //todo : blocked due to lack of coins
+      setError(false)
       setBlocked(true);
       setInvalidCredentials(false);
       setNotFound(false);
       setWarning(false);
       setCoinsOver(true);
-    } else {
+    } else if((await res).status === 410){
+      //todo : blocked due to lack of coins
+      setError(true)
+      setBlocked(false);
       setInvalidCredentials(false);
+      setNotFound(false);
+      setWarning(false);
+      setCoinsOver(true);
+    }
+    else {
+      setInvalidCredentials(false);
+      setError(false)
       setNotFound(false);
       setBlocked(false);
       setWarning(true);
@@ -137,6 +153,13 @@ function LoginPage() {
                 ) : (
                   <></>
                 )}
+                {
+                  error ? (
+                    <p style={{ color: "red" }}>Some error occured, Please try again</p>
+                  ) : (
+                    <></>
+                  )
+                }
                 {warning ? (
                   <p style={{ color: "red" }}>
                     Wrong Location. You have {5 - teamData.countOfFails} tries

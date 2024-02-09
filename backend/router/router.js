@@ -107,6 +107,7 @@ router.post("/api/remove/:teamid/:memberid", async (req, res) => {
 
 router.post("/api/login/:location/", async (req, res) => {
   try {
+    // console.log(undefined.new)
     var { location } = req.params; // number assigned to that location
     location = parseInt(location);
     if (validLocations.includes(location) === false) {
@@ -240,6 +241,7 @@ router.post("/api/login/:location/", async (req, res) => {
             httpOnly: true,
           });
           res.status(200).json(teamData);
+          return;
         } else {
           const logTemp = await logModel.findOne();
           if (!logTemp) {
@@ -259,6 +261,7 @@ router.post("/api/login/:location/", async (req, res) => {
             teamData.wrongLog = teamData.wrongLog.concat({
               location: location,
             });
+            if(location_num.index === location_index_current + 1)
             teamData.countOfFails = teamData.countOfFails + 1;
             const curr = new Date();
             logData.logs = logData.logs.concat({
