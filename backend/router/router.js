@@ -253,11 +253,16 @@ router.post("/api/login/:location/", async (req, res) => {
           }
           const logData = await logModel.findOne();
 
-          {
+          if (
+            !teamData.wrongLog ||
+            teamData.wrongLog.findIndex(
+              (item) => item.location === parseInt(location)
+            ) === -1
+          ) {
             teamData.wrongLog = teamData.wrongLog.concat({
               location: location,
             });
-            if(location_num.index > location_index_current + 1)
+            // if(location_num.index > location_index_current + 1)
             console.log(teamData.countOfFails)
             teamData.countOfFails = teamData.countOfFails + 1;
             const curr = new Date();
