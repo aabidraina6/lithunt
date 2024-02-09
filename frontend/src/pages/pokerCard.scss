@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap');
+
+:root {
+  --darkBg: #ffcc33;
+  --lightBg: #fff3ce;
+  --darkRed: #e22929;
+  --lightRed: #ffd0d0;
+  --darkBlack: #000;
+  --lightBlack: #777;
+}
+// card layout
+
+.my-card {
+  display: flex;
+// width: 100vw;
+  
+  // margin: 12px;
+  font-family: 'Syne Mono', monospace;
+  position: relative;
+
+  cursor: pointer;
+  &.checked .front-card  {
+    transform: rotateY(180deg);
+  }
+
+  &.checked .back-card {
+    transform: rotateY(0deg);
+  }
+}
+.front-card, .back-card {
+  // position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  max-width: 100vw;
+  height: 40vh;
+  filter: drop-shadow(0 0 5px silver);
+  border-radius: 12px;
+  backface-visibility: hidden;
+  transition: all 0.5s;
+}
+// back
+.back-card {
+  border: 6px solid #fff;
+  background: conic-gradient(
+    var(--darkBg) 25%, 
+    var(--lightBg) 25%, 
+    var(--lightBg) 50%, 
+    var(--darkBg) 50%, 
+    var(--darkBg) 75%, 
+    var(--lightBg) 75%);
+  background-size: 20px 20px;
+  transform: rotateY(-180deg);
+}
+// front-card with suit
+.front-card {
+  background-color: #fff;
+  font-size: 24px;
+  // background-image: linear-gradient(0deg, #fff 0%, cyan 100%);
+
+}
+input[type=checkbox] {
+  display: none;
+  &:checked {
+    ~ .front-card {
+      transform: rotateY(180deg);
+    }
+    ~ .back-card {
+      transform: rotateY(0deg);
+    }
+  }
+}
+// suits: black
+.spade, .club {
+  color: var(--darkBlack);
+}
+
+// suits unicode
+.spade .suit:after {
+  content: '\2660';
+}
+.heart .suit:after {
+  content: '\2665';
+}
+.diamond .suit:after {
+  content: '\2666';
+}
+.club .suit:after {
+  content: '\2663';
+}
+
+.clue-card{
+  
+}
+
+// number
+.num-box {
+  text-align: center;
+  position: absolute;
+  width: 20px;
+  &.top {
+    top: 10px;
+    left: 10px;
+  }
+  &.bottom {
+    bottom: 10px;
+    right: 10px;
+    transform: rotate(180deg);
+  }
+  &.suit:after {
+    display: block;
+    font-size: 1.2em;
+    margin-top: -10px;
+  }
+}
+// main-card suit
+.main-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: 90vw;
+  // word-wrap: break-word;
+  transform: translate(-50%, -50%);
+  font-size: 5em;
+  color: black;
+  padding: 25px 25px;
+  overflow-y: scroll;
+  max-height: 200px;
+  font-size: .7em;
+
+  // -webkit-background-clip: text;
+}
+
+

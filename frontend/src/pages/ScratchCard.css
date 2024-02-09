@@ -1,0 +1,43 @@
+.scratch-card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+.scratch-card {
+  width: 100%; /* Make the cards full width */
+  height: auto; /* Fixed height for each card */
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  margin-bottom: auto; 
+  margin-top: auto; /* Add margin for spacing between the cards */
+  /* Add margin for spacing between the cards */
+}
+
+.scratch-card.scratched {
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: auto; 
+  padding: 20px; 
+
+}
+
+.scratch-card-text {
+  width: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+

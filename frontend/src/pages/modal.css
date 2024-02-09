@@ -1,0 +1,11 @@
+.my-modal {
+    width: 50%;
+    max-width: 28%;
+   /* Ensure the maximum width does not exceed 50% of the viewport width */
+    /* Shift the modal back by half its width and height to center it */
+}
+
+.custom-modal-size {
+    max-width: 50% !important; /* Override max-width for larger screens */
+    margin: auto; /* Center the modal */
+  }

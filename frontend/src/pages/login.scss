@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Fira+Mono:wght@500&display=swap');
+body {
+  height: 100vh;
+  }
+
+  
+  
+
+  .container-login {
+    display: flex;
+    justify-content: center;
+    // margin-top: 30px;
+  }
+  
+  .centered {
+    display: block;
+    margin: 0 auto;
+  }
+  .not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 2rem;
+  }
+  
+
+  .message-all {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+
+  }
+  
+  
+ 
