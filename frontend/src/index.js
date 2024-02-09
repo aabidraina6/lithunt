@@ -56,8 +56,7 @@ export default function MyApp() {
             path="/message/:location"
           ></Route>
           <Route element={<FakePage/> } exact path="/fakemessage"></Route>
-          <Route element={<Card/>} exact path="/card"></Route>
-          {/* <Route element = {<NotFound/>} exact path = "*"></Route> */}
+          <Route element = {<NotFound/>} exact path = "*"></Route>
         </Routes>
       </BrowserRouter>
     </div>
